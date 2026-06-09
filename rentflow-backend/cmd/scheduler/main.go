@@ -4,39 +4,21 @@ import (
 	"log"
 	"os"
 	"rentflow-backend/internal/scheduler"
-
-	"github.com/robfig/cron/v3"
 )
 
 func main() {
-	// Set up logging to a file
-	logFile, err := os.OpenFile("scheduler.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("failed to open log file: %v", err)
-	}
-	defer logFile.Close()
-	log.SetOutput(logFile)
-	
-	c := cron.New()
+	// Log to standard output, which is ideal for GitHub Actions
+	log.SetOutput(os.Stdout)
 
-	// Schedule cron jobs
-	// Every month on the 1st day
-	_, err = c.AddFunc("* * * * *", scheduler.GenerateInvoicesJob)
-	if err != nil {
-		log.Fatalf("failed to add generate invoices job: %v", err)
-	}
+	log.Println("Starting scheduler jobs...")
 
-	// Every day at 9am
-	_, err = c.AddFunc("0 9 * * *", scheduler.SendRemindersJob)
-	if err != nil {
-		log.Fatalf("failed to add send reminders job: %v", err)
-	}
+	log.Println("Running job: generate-invoices")
+	scheduler.GenerateInvoicesJob()
+	log.Println("Job 'generate-invoices' finished.")
 
-	// Start the cron scheduler
-	c.Start()
+	log.Println("Running job: send-reminders")
+	scheduler.SendRemindersJob()
+	log.Println("Job 'send-reminders' finished.")
 
-	log.Println("scheduler started")
-
-	// Keep the scheduler running
-	select {}
+	log.Println("All scheduler jobs finished successfully.")
 }
