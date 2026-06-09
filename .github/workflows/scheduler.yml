@@ -10,6 +10,10 @@ jobs:
   run-scheduler:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: rentflow-backend
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
