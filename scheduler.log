@@ -1,0 +1,26 @@
+2026/06/09 11:15:05 scheduler started
+2026/06/09 11:16:00 Starting GenerateInvoicesJob...
+2026/06/09 11:16:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:16:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:16:00 Generating monthly invoices...
+2026/06/09 11:16:01 invoice already exists for tenant X9sI8goHX12sWYCBBo7q for month 2026-06
+2026/06/09 11:16:02 invoice already exists for tenant YEsE2ho1VglZ88bThyNG for month 2026-06
+2026/06/09 11:16:02 Successfully generated monthly invoices.
+2026/06/09 11:16:02 GenerateInvoicesJob finished.
+2026/06/09 11:17:00 Starting GenerateInvoicesJob...
+2026/06/09 11:17:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:17:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:17:00 Generating monthly invoices...
+2026/06/09 11:17:01 invoice already exists for tenant X9sI8goHX12sWYCBBo7q for month 2026-06
+2026/06/09 11:17:02 invoice already exists for tenant YEsE2ho1VglZ88bThyNG for month 2026-06
+2026/06/09 11:17:02 Successfully generated monthly invoices.
+2026/06/09 11:17:02 GenerateInvoicesJob finished.
+2026/06/09 11:18:30 scheduler started
+2026/06/09 11:19:00 Starting GenerateInvoicesJob...
+2026/06/09 11:19:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:19:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:19:00 Generating monthly invoices...
+2026/06/09 11:19:02 generated invoice for tenant X9sI8goHX12sWYCBBo7q for month 2026-06
+2026/06/09 11:19:03 generated invoice for tenant YEsE2ho1VglZ88bThyNG for month 2026-06
+2026/06/09 11:19:03 Successfully generated monthly invoices.
+2026/06/09 11:19:03 GenerateInvoicesJob finished.

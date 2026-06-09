@@ -1,0 +1,11 @@
+2026/06/09 07:42:59 Starting server on :8080
+2026/06/09 07:44:46 Firestore connection successful!
+2026/06/09 09:14:53 Starting server on :8080
+2026/06/09 09:15:10 Firestore connection successful!
+2026/06/09 09:24:17 Starting server on :8080
+2026/06/09 09:24:17 failed to run server: listen tcp :8080: bind: address already in use
+2026/06/09 09:24:35 Firestore connection successful!
+2026/06/09 09:29:15 Starting server on :8080
+2026/06/09 09:29:15 failed to run server: listen tcp :8080: bind: address already in use
+2026/06/09 09:30:28 Starting server on :8080
+2026/06/09 09:30:56 Firestore connection successful!

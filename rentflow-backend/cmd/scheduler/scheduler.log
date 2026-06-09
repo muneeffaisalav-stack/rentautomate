@@ -1,0 +1,66 @@
+2026/06/09 10:38:07 scheduler started
+2026/06/09 10:39:14 scheduler started
+2026/06/09 10:41:20 scheduler started
+2026/06/09 10:42:49 scheduler started
+2026/06/09 10:43:00 Starting GenerateInvoicesJob...
+2026/06/09 10:43:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:43:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:44:00 Starting GenerateInvoicesJob...
+2026/06/09 10:44:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:44:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:45:00 Starting GenerateInvoicesJob...
+2026/06/09 10:45:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:45:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:46:00 Starting GenerateInvoicesJob...
+2026/06/09 10:46:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:46:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:47:00 Starting GenerateInvoicesJob...
+2026/06/09 10:47:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:47:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:48:00 Starting GenerateInvoicesJob...
+2026/06/09 10:48:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:48:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:49:00 Starting GenerateInvoicesJob...
+2026/06/09 10:49:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:49:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:50:00 Starting GenerateInvoicesJob...
+2026/06/09 10:50:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:50:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:51:00 Starting GenerateInvoicesJob...
+2026/06/09 10:51:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:51:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:52:00 Starting GenerateInvoicesJob...
+2026/06/09 10:52:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:52:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 10:55:44 scheduler started
+2026/06/09 10:56:00 Starting GenerateInvoicesJob...
+2026/06/09 10:56:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 10:56:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 10:56:00 Generating monthly invoices...
+2026/06/09 10:56:01 ERROR: failed to generate monthly invoices: failed to get tenants: rpc error: code = PermissionDenied desc = Missing or insufficient permissions.
+2026/06/09 10:56:01 GenerateInvoicesJob finished.
+2026/06/09 11:00:30 scheduler started
+2026/06/09 11:02:35 failed to open log file:
+2026/06/09 11:03:24 scheduler started
+2026/06/09 11:04:00 Starting GenerateInvoicesJob...
+2026/06/09 11:04:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:04:00 ERROR: failed to create firestore client in GenerateInvoicesJob: firestore: projectID was empty
+2026/06/09 11:04:50 scheduler started
+2026/06/09 11:05:00 Starting GenerateInvoicesJob...
+2026/06/09 11:05:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:05:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:05:00 Generating monthly invoices...
+2026/06/09 11:05:01 ERROR: failed to generate monthly invoices: failed to get tenants: rpc error: code = PermissionDenied desc = Missing or insufficient permissions.
+2026/06/09 11:05:01 GenerateInvoicesJob finished.
+2026/06/09 11:06:00 Starting GenerateInvoicesJob...
+2026/06/09 11:06:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:06:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:06:00 Generating monthly invoices...
+2026/06/09 11:06:01 ERROR: failed to generate monthly invoices: failed to get tenants: rpc error: code = PermissionDenied desc = Missing or insufficient permissions.
+2026/06/09 11:06:01 GenerateInvoicesJob finished.
+2026/06/09 11:07:00 Starting GenerateInvoicesJob...
+2026/06/09 11:07:00 Config loaded successfully for GenerateInvoicesJob.
+2026/06/09 11:07:00 Firestore client created successfully for GenerateInvoicesJob.
+2026/06/09 11:07:00 Generating monthly invoices...
+2026/06/09 11:07:02 ERROR: failed to generate monthly invoices: failed to get tenants: rpc error: code = PermissionDenied desc = Missing or insufficient permissions.
+2026/06/09 11:07:02 GenerateInvoicesJob finished.
