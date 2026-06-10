@@ -27,7 +27,8 @@ jobs:
         run: go mod download
 
       - name: Authenticate with Google Cloud
-        run: echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-credentials.json
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-credentials.json
 
       - name: Run Scheduler
         env:
