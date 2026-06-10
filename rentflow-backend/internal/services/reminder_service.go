@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/url"
+	"rentflow-backend/internal/config"
 	"rentflow-backend/internal/models"
 	"time"
 
@@ -14,13 +16,15 @@ import (
 type ReminderService struct {
 	firestore       *firestore.Client
 	whatsappService IWhatsAppSender
+	config          *config.Config
 }
 
 // NewReminderService creates a new ReminderService
-func NewReminderService(firestore *firestore.Client, whatsappService IWhatsAppSender) *ReminderService {
+func NewReminderService(firestore *firestore.Client, whatsappService IWhatsAppSender, config *config.Config) *ReminderService {
 	return &ReminderService{
 		firestore:       firestore,
 		whatsappService: whatsappService,
+		config:          config,
 	}
 }
 
@@ -39,7 +43,7 @@ func (s *ReminderService) SendRentReminders(ctx context.Context) error {
 		}
 
 		if err := s.sendReminderForInvoice(ctx, &invoice); err != nil {
-			log.Printf("failed to send reminder for invoice %s: %v", invoice.ID, err)
+			return fmt.Errorf("failed to send reminder for invoice %s: %v", invoice.ID, err)
 		}
 	}
 
@@ -68,7 +72,7 @@ func (s *ReminderService) sendReminderForInvoice(ctx context.Context, invoice *m
 
 	// Send reminder on the due date
 	if int64(now.Day()) == dueDate {
-		if err := s.sendReminder(ctx, invoice, &tenant, "reminder_due_date"); err != nil {
+		if err := s.sendReminder(ctx, invoice, &tenant, s.config.WhatsAppDueDateTemplate); err != nil {
 			return err
 		}
 	}
@@ -77,9 +81,34 @@ func (s *ReminderService) sendReminderForInvoice(ctx context.Context, invoice *m
 }
 
 func (s *ReminderService) sendReminder(ctx context.Context, invoice *models.Invoice, tenant *models.Tenant, templateName string) error {
+	if invoice.LandlordID == "" {
+		return fmt.Errorf("invoice %s has an empty LandlordID", invoice.ID)
+	}
+
+	// Get landlord to find out the UPI ID
+	landlordSnap, err := s.firestore.Collection("users").Doc(invoice.LandlordID).Get(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to get landlord: %v", err)
+	}
+	var landlord models.User
+	if err := landlordSnap.DataTo(&landlord); err != nil {
+		return fmt.Errorf("failed to decode landlord data: %v", err)
+	}
+
+	if landlord.UpiID == "" {
+		return fmt.Errorf("landlord %s has an empty UpiID", landlord.ID)
+	}
+
+	dueDateStr := fmt.Sprintf("%d", tenant.DueDate)
+	amountStr := fmt.Sprintf("%d", invoice.Amount)
+
+	note := fmt.Sprintf("Rent for %s for %s", tenant.Name, invoice.Month)
+	paymentLink := fmt.Sprintf("upi://pay?pa=%s&pn=%s&am=%s&cu=INR&tn=%s", landlord.UpiID, landlord.Name, amountStr, url.QueryEscape(note))
+
+	log.Printf("Sending reminder to recipient: %s", tenant.Phone)
 
 	// Send WhatsApp reminder
-	if err := s.whatsappService.SendRentReminder(tenant.Name, tenant.Phone, fmt.Sprintf("%d", invoice.Amount), "", "", templateName);
+	if err := s.whatsappService.SendRentReminder(tenant.Name, tenant.Phone, amountStr, dueDateStr, paymentLink, templateName);
 	err != nil {
 		return fmt.Errorf("failed to send whatsapp reminder: %v", err)
 	}

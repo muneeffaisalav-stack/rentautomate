@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
+	"io"
 	"net/http"
 	"rentflow-backend/internal/config"
 )
@@ -42,23 +42,28 @@ func (s *WhatsAppService) SendRentReminder(tenantName, phone, amount, dueDate, p
 		"template": map[string]interface{}{
 			"name": templateName,
 			"language": map[string]string{
-				"code": "en_US",
+				"code": s.config.WhatsAppLanguageCode,
 			},
 			"components": []map[string]interface{}{
 				{
 					"type": "body",
-					"parameters": []map[string]string{
-						{"type": "text", "text": tenantName},
-						{"type": "text", "text": amount},
-						{"type": "text", "text": dueDate},
-					},
-				},
-				{
-					"type":       "button",
-					"sub_type":   "url",
-					"index":      "0",
-					"parameters": []map[string]string{
-						{"type": "text", "text": paymentLink},
+					"parameters": []map[string]interface{}{
+						{
+							"type": "text",
+							"text": tenantName,
+						},
+						{
+							"type": "text",
+							"text": amount,
+						},
+						{
+							"type": "text",
+							"text": dueDate,
+						},
+						{
+							"type": "text",
+							"text": paymentLink,
+						},
 					},
 				},
 			},
@@ -85,7 +90,11 @@ func (s *WhatsAppService) SendRentReminder(tenantName, phone, amount, dueDate, p
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("failed to send whatsapp message: %s", resp.Status)
+		bodyBytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("failed to send whatsapp message: %s", resp.Status)
+		}
+		return fmt.Errorf("failed to send whatsapp message: %s, body: %s", resp.Status, string(bodyBytes))
 	}
 
 	return nil

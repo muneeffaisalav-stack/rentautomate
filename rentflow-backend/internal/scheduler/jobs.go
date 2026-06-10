@@ -9,61 +9,51 @@ import (
 )
 
 // GenerateInvoicesJob is the cron job for generating monthly invoices
-func GenerateInvoicesJob() {
+func GenerateInvoicesJob() error {
 	log.Println("Starting GenerateInvoicesJob...")
 	ctx := context.Background()
 
 	cfg, err := config.Load()
 	if err != nil {
-		log.Printf("ERROR: failed to load config in GenerateInvoicesJob: %v", err)
-		return
+		return err
 	}
-	log.Println("Config loaded successfully for GenerateInvoicesJob.")
 
 	firestoreClient, err := firestore.NewClient(ctx, cfg.FirestoreProjectID)
 	if err != nil {
-		log.Printf("ERROR: failed to create firestore client in GenerateInvoicesJob: %v", err)
-		return
+		return err
 	}
-	log.Println("Firestore client created successfully for GenerateInvoicesJob.")
 
 	invoiceService := services.NewInvoiceService(firestoreClient)
-	log.Println("Generating monthly invoices...")
 	if err := invoiceService.GenerateMonthlyInvoices(ctx); err != nil {
-		log.Printf("ERROR: failed to generate monthly invoices: %v", err)
-	} else {
-		log.Println("Successfully generated monthly invoices.")
+		return err
 	}
+
 	log.Println("GenerateInvoicesJob finished.")
+	return nil
 }
 
 // SendRemindersJob is the cron job for sending rent reminders
-func SendRemindersJob() {
+func SendRemindersJob() error {
 	log.Println("Starting SendRemindersJob...")
 	ctx := context.Background()
 
 	cfg, err := config.Load()
 	if err != nil {
-		log.Printf("ERROR: failed to load config in SendRemindersJob: %v", err)
-		return
+		return err
 	}
-	log.Println("Config loaded successfully for SendRemindersJob.")
 
 	firestoreClient, err := firestore.NewClient(ctx, cfg.FirestoreProjectID)
 	if err != nil {
-		log.Printf("ERROR: failed to create firestore client in SendRemindersJob: %v", err)
-		return
+		return err
 	}
-	log.Println("Firestore client created successfully for SendRemindersJob.")
 
 	whatsappService := services.NewWhatsAppService(cfg)
-	reminderService := services.NewReminderService(firestoreClient, whatsappService)
+	reminderService := services.NewReminderService(firestoreClient, whatsappService, cfg)
 
-	log.Println("Sending rent reminders...")
 	if err := reminderService.SendRentReminders(ctx); err != nil {
-		log.Printf("ERROR: failed to send rent reminders: %v", err)
-	} else {
-		log.Println("Successfully sent rent reminders.")
+		return err
 	}
+
 	log.Println("SendRemindersJob finished.")
+	return nil
 }

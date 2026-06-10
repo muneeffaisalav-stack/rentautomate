@@ -24,7 +24,7 @@ func main() {
 	// Register handlers
 	router.GET("/health", handlers.HealthCheck)
 	router.POST("/api/manual/generate-invoices", handlers.GenerateInvoices)
-	router.POST("/api/manual/send-reminders", handlers.SendReminders)
+	router.POST("api/manual/send-reminders", handlers.SendReminders)
 	router.GET("/api/invoices", handlers.GetInvoices)
 	router.GET("/api/invoices/:id", handlers.GetInvoiceByID)
 	router.POST("/api/webhooks/razorpay", handlers.ProcessRazorpayWebhook)
