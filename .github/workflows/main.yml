@@ -1,0 +1,38 @@
+name: RentFlow
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-scheduler:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: rentflow-backend
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Download Dependencies
+        run: go mod download
+
+      - name: Authenticate with Google Cloud
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS }}' > gcp-credentials.json
+
+      - name: Run Scheduler
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: gcp-credentials.json
+          FIRESTORE_PROJECT_ID: ${{ secrets.FIRESTORE_PROJECT_ID }}
+          WHATSAPP_API_TOKEN: ${{ secrets.WHATSAPP_API_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+        run: go run cmd/scheduler/main.go
