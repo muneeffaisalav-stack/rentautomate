@@ -28,7 +28,7 @@ jobs:
 
       - name: Authenticate with Google Cloud
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-credentials.json
+          echo '${{ secrets.GCP_CREDENTIALS }}' > gcp-credentials.json
 
       - name: Run Scheduler
         env:
