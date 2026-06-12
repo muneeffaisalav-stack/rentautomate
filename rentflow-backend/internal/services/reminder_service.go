@@ -99,7 +99,11 @@ func (s *ReminderService) sendReminder(ctx context.Context, invoice *models.Invo
 		return fmt.Errorf("landlord %s has an empty UpiID", landlord.ID)
 	}
 
-	dueDateStr := fmt.Sprintf("%d", tenant.DueDate)
+	month, err := time.Parse("2006-01", invoice.Month)
+    if err != nil {
+        return fmt.Errorf("failed to parse invoice month: %v", err)
+    }
+	dueDateStr := time.Date(month.Year(), month.Month(), int(tenant.DueDate), 0, 0, 0, 0, time.UTC).Format("2006-01-02")
 	amountStr := fmt.Sprintf("%d", invoice.Amount)
 
 	note := fmt.Sprintf("Rent for %s for %s", tenant.Name, invoice.Month)

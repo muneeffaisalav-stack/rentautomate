@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"rentflow-backend/internal/config"
 )
@@ -35,6 +36,8 @@ func NewWhatsAppService(config *config.Config) *WhatsAppService {
 func (s *WhatsAppService) SendRentReminder(tenantName, phone, amount, dueDate, paymentLink, templateName string) error {
 	url := fmt.Sprintf("https://graph.facebook.com/%s/%s/messages", s.config.WhatsAppAPIVersion, s.config.WhatsAppPhoneNumberID)
 
+	log.Printf("Using WhatsApp template: %s", templateName)
+
 	payload := map[string]interface{}{
 		"messaging_product": "whatsapp",
 		"to":                phone,
@@ -50,18 +53,22 @@ func (s *WhatsAppService) SendRentReminder(tenantName, phone, amount, dueDate, p
 					"parameters": []map[string]interface{}{
 						{
 							"type": "text",
+							"parameter_name": "name",
 							"text": tenantName,
 						},
 						{
 							"type": "text",
+							"parameter_name": "amount",
 							"text": amount,
 						},
 						{
 							"type": "text",
+							"parameter_name": "date",
 							"text": dueDate,
 						},
 						{
 							"type": "text",
+							"parameter_name": "link",
 							"text": paymentLink,
 						},
 					},
